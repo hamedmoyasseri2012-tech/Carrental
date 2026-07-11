@@ -10,10 +10,10 @@ const Footer = () => {
             everyday vehicles for all your driving needs.
           </p>
           <div className="flex gap-2">
-            <img className="w-5 h-5" src="./public/face.svg" alt="" />
-            <img className="w-5 h-5" src="./public/ig.svg" alt="" />
-            <img className="w-5 h-5" src="./public/tw.svg" alt="" />
-            <img className="w-5 h-5" src="./public/em.svg" alt="" />
+            <img className="w-5 h-5" src="/public/face.svg" alt="" />
+            <img className="w-5 h-5" src="/public/ig.svg" alt="" />
+            <img className="w-5 h-5" src="/public/tw.svg" alt="" />
+            <img className="w-5 h-5" src="/public/em.svg" alt="" />
           </div>
           <div className="flex flex-col gap-2">
             <h1 className="uppercase text-[16px] font-medium">Quick Links</h1>

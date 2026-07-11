@@ -1,8 +1,12 @@
-import { useState } from "react";
 import { CiSearch } from "react-icons/ci";
+import { useSelectCar } from "../Store/useSelectCar";
 
 const Banner = () => {
-  const [value, setValue] = useState("");
+  // const [value, setValue] = useState("");
+
+  const { selectCar, setSelectCar } = useSelectCar();
+
+  console.log(selectCar);
 
   return (
     <div className="bg-[#f1f4f9] flex flex-col justify-center items-center gap-10 pt-8">
@@ -11,8 +15,8 @@ const Banner = () => {
         <div className="sm:flex">
           <div className="flex flex-col w-fit justify-center items-center">
             <select
-              value={value}
-              onChange={(e) => setValue(e.target.value)}
+              value={selectCar}
+              onChange={(e) => setSelectCar(e.target.value)}
               className="border border-white outline-none font-medium items-start text-start"
               name=""
               id="city"
@@ -46,7 +50,7 @@ const Banner = () => {
               </option>
             </select>
             <p className="text-[#6a7282]" id="city">
-              {value ? value : "Please select location"}
+              {selectCar ? selectCar : "Please select location"}
             </p>
           </div>
           <div className="flex flex-col gap-2 p-2">

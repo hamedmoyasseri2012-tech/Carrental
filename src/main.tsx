@@ -7,7 +7,8 @@ import { RouterProvider } from "react-router";
 import MainLayOut from "./layout/MainLayOut.tsx";
 import Cars from "./Pages/Cars.tsx";
 import MyBookings from "./Pages/MyBookings.tsx";
-import CarsList from "./Pages/CarsList.tsx";
+// import CarsList from "./Pages/CarsList.tsx";
+import CarDetails from "./Pages/CarDetails.tsx";
 
 const router = createBrowserRouter([
   {
@@ -27,9 +28,10 @@ const router = createBrowserRouter([
         path: "my-bookings",
         Component: MyBookings,
       },
+
       {
-        path: "ListCars",
-        Component: CarsList,
+        path: "cars/:id", //
+        Component: CarDetails,
       },
     ],
   },

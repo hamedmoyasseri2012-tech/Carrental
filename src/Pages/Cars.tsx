@@ -1,24 +1,29 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { Link } from "react-router";
 
-type Car = {
-  _id: string;
+export interface ICarData {
   brand: string;
-  model: string;
-  image: string;
-  pricePerDay: number;
-  year: number;
-  seating_capacity: string;
   category: string;
-  fuel_type: string;
-  transmission: string;
+  createdAt: string;
   description: string;
-  location: string;
+  fuel_type: string;
+  image: string;
   isAvaliable: boolean;
-};
+  location: string;
+  model: string;
+  owner: string;
+  pricePerDay: number;
+  seating_capacity: number;
+  transmission: string;
+  updatedAt: string;
+  year: number;
+  __v: 0;
+  _id: string;
+}
 
 const Cars = () => {
-  const [cars, setCars] = useState<Car[]>([]);
+  const [cars, setCars] = useState<ICarData[]>([]);
 
   useEffect(() => {
     axios
@@ -53,7 +58,8 @@ const Cars = () => {
         </p>
         <div className="flex flex-col justify-center items-center pt-8 gap-6 ">
           {cars.map((car) => (
-            <div
+            <Link
+              to={`/cars/${car._id}`}
               className="flex flex-col justify-center  items-center bg-[#f1f4f9] relative"
               key={car._id}
             >
@@ -113,7 +119,7 @@ const Cars = () => {
                   <p className="text-[#c3c5c6] font-medium">/day</p>
                 </div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </div>
