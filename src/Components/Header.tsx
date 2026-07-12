@@ -90,11 +90,11 @@ const Header = () => {
                 list cars
               </Link>
             </li>
-            <li>
+            <Link to = "login">
               <button className="bg-[#2563eb] text-white w-26 h-10 rounded-xl">
                 Login
               </button>
-            </li>
+            </Link>
           </ul>
         </div>
       )}

@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-// import { useParams } from "react-router";
 import type { ICarData } from "./Cars";
 import { useParams } from "react-router";
 
