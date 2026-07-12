@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router";
-import { useSelectCar } from "../Store/useSelectCar";
+
 
 export interface ICarData {
   brand: string;
@@ -26,13 +26,16 @@ export interface ICarData {
 const Cars = () => {
   const [cars, setCars] = useState<ICarData[]>([]);
 
-  const { selectCar } = useSelectCar();
-
   const [search, setSearch] = useState("");
 
-  const filteredCars = cars.filter((car) =>
-    `${car.brand} ${car.model}`.toLowerCase().includes(search.toLowerCase()),
-  );
+  const filteredCars = cars.filter((car) => {
+    const matchSearch =
+      car.brand.toLowerCase().includes(search.toLowerCase()) ||
+      car.model.toLowerCase().includes(search.toLowerCase()) ||
+      car.category.toLowerCase().includes(search.toLowerCase());
+
+    return matchSearch;
+  });
 
   useEffect(() => {
     axios
@@ -66,12 +69,11 @@ const Cars = () => {
       <div className="flex flex-col justify-center items-center mt-10 mb-50">
         <p className="flex items-start font-medium pr-40 text-[#6a7282]">
           Showing
-          {cars.filter((item) => item.location === selectCar).length ||
-            cars.length}
+          {filteredCars.length}
           Cars
         </p>
         <div className="flex flex-col justify-center items-center pt-8 gap-6 ">
-          {cars.map((car) => (
+          {filteredCars.map((car) => (
             <Link
               to={`/cars/${car._id}`}
               className="flex flex-col justify-center  items-center bg-[#f1f4f9] relative"
