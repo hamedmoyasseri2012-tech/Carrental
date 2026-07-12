@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router";
+import { useSelectCar } from "../Store/useSelectCar";
 
 export interface ICarData {
   brand: string;
@@ -25,6 +26,14 @@ export interface ICarData {
 const Cars = () => {
   const [cars, setCars] = useState<ICarData[]>([]);
 
+  const { selectCar } = useSelectCar();
+
+  const [search, setSearch] = useState("");
+
+  const filteredCars = cars.filter((car) =>
+    `${car.brand} ${car.model}`.toLowerCase().includes(search.toLowerCase()),
+  );
+
   useEffect(() => {
     axios
       .get("https://carrental-server.greatstack.in/api/user/cars")
@@ -46,6 +55,8 @@ const Cars = () => {
           <img className="w-4.5 h-4.5" src="./public/search.svg" alt="" />
           <input
             type="text"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
             className=" flex-1 items-center outline-none font-medium text-[#6a7282]"
             placeholder="Search by make, model, or features"
           />
@@ -54,7 +65,10 @@ const Cars = () => {
       </div>
       <div className="flex flex-col justify-center items-center mt-10 mb-50">
         <p className="flex items-start font-medium pr-40 text-[#6a7282]">
-          Showing 7 Cars
+          Showing
+          {cars.filter((item) => item.location === selectCar).length ||
+            cars.length}
+          Cars
         </p>
         <div className="flex flex-col justify-center items-center pt-8 gap-6 ">
           {cars.map((car) => (
@@ -81,13 +95,13 @@ const Cars = () => {
                   <div className="flex gap-2 items-center text-[#4a5565] font-medium">
                     <img
                       className="w-4.5 h-4"
-                      src="./public/person.svg"
+                      src="/public/person.svg"
                       alt=""
                     />
                     {car.seating_capacity} Seats
                   </div>
                   <div className="flex gap-2 items-center text-[#4a5565] font-medium pr-14">
-                    <img className="w-4.5 h-4" src="./public/fuel.svg" alt="" />
+                    <img className="w-4.5 h-4" src="/public/fuel.svg" alt="" />
                     {car.fuel_type}
                   </div>
                 </div>
@@ -95,7 +109,7 @@ const Cars = () => {
                   <div className="flex gap-2 items-center text-[#4a5565] font-medium pl-4">
                     <img
                       className="w-4.5 h-4"
-                      src="./public/carmodel.svg"
+                      src="/public/carmodel.svg"
                       alt=""
                     />
                     <p className="f w-18 h-5 whitespace-nowrap">
@@ -103,7 +117,7 @@ const Cars = () => {
                     </p>
                   </div>
                   <div className="flex gap-2 items-center text-xs text-[#4a5565] w-32 h-5 font-medium pr-2">
-                    <img className="w-4.5 h-4" src="./public/loc.svg" alt="" />
+                    <img className="w-4.5 h-4" src="/public/loc.svg" alt="" />
                     <p className=" w-18 h-5 whitespace-nowrap">
                       {car.location}
                     </p>

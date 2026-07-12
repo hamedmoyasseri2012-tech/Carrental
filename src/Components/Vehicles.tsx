@@ -45,7 +45,8 @@ const Vehicles = () => {
               }
             })
             .map((car) => (
-              <div
+              <Link
+                to={`/cars/${car._id}`}
                 className="flex flex-col justify-center  items-center bg-[#f1f4f9] relative"
                 key={car._id}
               >
@@ -113,7 +114,7 @@ const Vehicles = () => {
                     <p className="text-[#c3c5c6] font-medium">/day</p>
                   </div>
                 </div>
-              </div>
+              </Link>
             ))}
         </div>
         <div>
