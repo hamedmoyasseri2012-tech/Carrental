@@ -1,14 +1,18 @@
 import { useState } from "react";
 import { Link } from "react-router";
 import { CiSearch } from "react-icons/ci";
+import { useShowMenu } from "../Store/useShowMenu";
+import clsx from "clsx";
 
 const Header = () => {
-  const [showMenu, setShowMenu] = useState(false);
+  // const [showMenu, setShowMenu] = useState(false);
+  const { showMenu, setShowMenu } = useShowMenu();
+  console.log(showMenu);
   const [showLogin, setShowLogin] = useState(false);
   const [isSignup, setIsSignup] = useState(false);
 
   const handleMenu = () => {
-    setShowMenu((prev) => !prev);
+    setShowMenu(true);
   };
 
   return (
@@ -64,54 +68,61 @@ const Header = () => {
         </button>
       </header>
 
-      {showMenu && (
-        <div className="fixed inset-0 bg-white z-50 flex flex-col ">
-          <div className="flex justify-between items-center p-4 border-b border-[#c4c7d2] bg-[#f1f4f9]">
-            <img src="/logo.svg" alt="Logo" />
+      <div
+        className={clsx(
+          "fixed inset-0 bg-white z-50 flex flex-col transition-all duration-1000",
+          {
+            "-translate-x-full": showMenu === false,
+            "translate-x-0": showMenu === true,
+          },
+        )}
+      >
+        <div className="flex justify-between items-center p-4 border-b border-[#c4c7d2] bg-[#f1f4f9]">
+          <img src="/logo.svg" alt="Logo" />
 
-            <button onClick={handleMenu} className="text-4xl">
-              ×
-            </button>
-          </div>
-          <ul className="flex flex-col h-full bg-[#f1f4f9]  gap-8 p-5">
-            <li>
-              <Link to="/" onClick={handleMenu}>
-                Home
-              </Link>
-            </li>
-
-            <li>
-              <Link to="/cars" onClick={handleMenu}>
-                Cars
-              </Link>
-            </li>
-
-            <li>
-              <Link to="/my-bookings" onClick={handleMenu}>
-                MyBookings
-              </Link>
-            </li>
-
-            <li>
-              <Link to="/listcars" onClick={handleMenu}>
-                List cars
-              </Link>
-            </li>
-            <li>
-              <button
-                onClick={() => {
-                  setShowMenu(false);
-                  setIsSignup(false);
-                  setShowLogin(true);
-                }}
-                className="bg-[#2563eb] text-white w-28 h-10 rounded-xl"
-              >
-                Login
-              </button>
-            </li>
-          </ul>
+          <button onClick={() => setShowMenu(false)} className="text-4xl">
+            ×
+          </button>
         </div>
-      )}
+        <ul className="flex flex-col h-full bg-[#f1f4f9]  gap-8 p-5">
+          <li>
+            <Link to="/" onClick={handleMenu}>
+              Home
+            </Link>
+          </li>
+
+          <li>
+            <Link to="/cars" onClick={handleMenu}>
+              Cars
+            </Link>
+          </li>
+
+          <li>
+            <Link to="/my-bookings" onClick={handleMenu}>
+              MyBookings
+            </Link>
+          </li>
+
+          <li>
+            <Link to="/listcars" onClick={handleMenu}>
+              List cars
+            </Link>
+          </li>
+          <li>
+            <button
+              onClick={() => {
+                setShowMenu(false);
+                setIsSignup(false);
+                setShowLogin(true);
+              }}
+              className="bg-[#2563eb] text-white w-28 h-10 rounded-xl"
+            >
+              Login
+            </button>
+          </li>
+        </ul>
+      </div>
+
       {showLogin && (
         <div
           className="fixed inset-0 bg-black/40 flex justify-center items-center z-999"
